@@ -1,0 +1,411 @@
+Last login: Mon Mar  2 23:14:02 on ttys000
+do%                                                                             
+~ via ❄️  v3.12.2 
+❯ docker run -dit -name container1 ubuntu sh
+unknown shorthand flag: 'n' in -name
+See 'docker run --help'.
+
+~ via ❄️  v3.12.2 
+❯ docker run -dit --name container1 ubuntu sh
+02d37d49c196af69df486bef4b169742c5c2e069de1f14321f2637b7bbc28252
+
+~ via ❄️  v3.12.2 
+❯ docker run -dit --name container2 ubuntu
+15542886522dad1c52008a9fbf5badddba6b9dea887fd8759f61ef88edf2c638
+
+~ via ❄️  v3.12.2 
+❯ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS          PORTS     NAMES
+15542886522d   ubuntu    "/bin/bash"   10 seconds ago   Up 9 seconds              container2
+02d37d49c196   ubuntu    "sh"          25 seconds ago   Up 24 seconds             container1
+
+~ via ❄️  v3.12.2 
+❯ docker exec ping google.co 
+curl https://registry-1.docker.io/v2/
+Error response from daemon: No such container: ping
+{"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":null}]}
+
+~ via ❄️  v3.12.2 
+❯ docker exec 15542886522d
+"docker exec" requires at least 2 arguments.
+See 'docker exec --help'.
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+
+~ via ❄️  v3.12.2 
+❯ docker exec -it 15542886522d
+"docker exec" requires at least 2 arguments.
+See 'docker exec --help'.
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+
+~ via ❄️  v3.12.2 
+❯ docker exec -it container1  
+"docker exec" requires at least 2 arguments.
+See 'docker exec --help'.
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+
+~ via ❄️  v3.12.2 
+❯ docker exec -it container1 sh
+# ls
+bin  boot  dev	etc  home  lib	lib64  media  mnt  opt	proc  root  run  sbin  srv  sys  tmp  usr  var
+# ping 
+sh: 2: ping: not found
+# ping container2
+sh: 3: ping: not found
+# ping container2
+sh: 4: ping: not found
+# apt install -y iputils-ping
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package iputils-ping
+# exit
+
+~ via ❄️  v3.12.2 took 1m37s 
+❯ docker exec it container1
+Error response from daemon: No such container: it
+
+~ via ❄️  v3.12.2 
+❯ docker exec -it container1
+"docker exec" requires at least 2 arguments.
+See 'docker exec --help'.
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+
+~ via ❄️  v3.12.2 
+❯ docker exec -it container1 bash
+root@02d37d49c196:/# ping
+bash: ping: command not found
+root@02d37d49c196:/# apt install -y iputils-ping 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package iputils-ping
+root@02d37d49c196:/# apt update
+Ign:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Ign:2 http://archive.ubuntu.com/ubuntu noble InRelease
+Ign:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Ign:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Ign:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Ign:2 http://archive.ubuntu.com/ubuntu noble InRelease
+Ign:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Ign:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Ign:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+Ign:2 http://archive.ubuntu.com/ubuntu noble InRelease
+Ign:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+Ign:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+Err:1 http://security.ubuntu.com/ubuntu noble-security InRelease
+  Could not connect to security.ubuntu.com:80 (91.189.92.22). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (185.125.190.81). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.92.24). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.91.82). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.91.83). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.91.81). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.92.23). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (185.125.190.83). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (185.125.190.82). - connect (111: Connection refused)
+Err:2 http://archive.ubuntu.com/ubuntu noble InRelease
+  Could not connect to archive.ubuntu.com:80 (91.189.91.82). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.92.23). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (185.125.190.83). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.91.81). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.92.24). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.91.83). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (185.125.190.82). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.92.22). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (185.125.190.81). - connect (111: Connection refused)
+Err:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease
+  Unable to connect to archive.ubuntu.com:80:
+Err:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease
+  Unable to connect to archive.ubuntu.com:80:
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+All packages are up to date.
+W: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/noble/InRelease  Could not connect to archive.ubuntu.com:80 (91.189.91.82). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.92.23). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (185.125.190.83). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.91.81). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.92.24). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.91.83). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (185.125.190.82). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (91.189.92.22). - connect (111: Connection refused) Could not connect to archive.ubuntu.com:80 (185.125.190.81). - connect (111: Connection refused)
+W: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/noble-updates/InRelease  Unable to connect to archive.ubuntu.com:80:
+W: Failed to fetch http://archive.ubuntu.com/ubuntu/dists/noble-backports/InRelease  Unable to connect to archive.ubuntu.com:80:
+W: Failed to fetch http://security.ubuntu.com/ubuntu/dists/noble-security/InRelease  Could not connect to security.ubuntu.com:80 (91.189.92.22). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (185.125.190.81). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.92.24). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.91.82). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.91.83). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.91.81). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (91.189.92.23). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (185.125.190.83). - connect (111: Connection refused) Could not connect to security.ubuntu.com:80 (185.125.190.82). - connect (111: Connection refused)
+W: Some index files failed to download. They have been ignored, or old ones used instead.
+root@02d37d49c196:/# apt install -y iputils-ping 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+E: Unable to locate package iputils-ping
+root@02d37d49c196:/# exit
+exit
+
+~ via ❄️  v3.12.2 took 56s 
+❯ docker ps
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS         PORTS     NAMES
+15542886522d   ubuntu    "/bin/bash"   4 minutes ago   Up 4 minutes             container2
+02d37d49c196   ubuntu    "sh"          4 minutes ago   Up 4 minutes             container1
+
+~ via ❄️  v3.12.2 
+❯ docker stop 15542886522d
+15542886522d
+
+~ via ❄️  v3.12.2 took 10s 
+❯ docker stop 02d37d49c196
+02d37d49c196
+
+~ via ❄️  v3.12.2 took 10s 
+❯ docker run -it ubuntu
+root@d40f1e69e836:/# exit
+exit
+
+~ via ❄️  v3.12.2 took 3s 
+❯ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+~ via ❄️  v3.12.2 
+❯ docker run -d ubuntu
+9093ff42d412778ded71d9f6fb6f7d25d54ce6c61f3e5a9aa51396ba9e4d93ac
+
+~ via ❄️  v3.12.2 
+❯ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+~ via ❄️  v3.12.2 
+❯ docker ps -a
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                            PORTS     NAMES
+9093ff42d412   ubuntu    "/bin/bash"   35 seconds ago   Exited (0) 34 seconds ago                   jovial_rosalind
+d40f1e69e836   ubuntu    "/bin/bash"   53 seconds ago   Exited (0) 49 seconds ago                   gracious_mendeleev
+15542886522d   ubuntu    "/bin/bash"   6 minutes ago    Exited (137) About a minute ago             container2
+02d37d49c196   ubuntu    "sh"          6 minutes ago    Exited (137) About a minute ago             container1
+
+~ via ❄️  v3.12.2 
+❯ docker rm 9093ff42d412
+9093ff42d412
+
+~ via ❄️  v3.12.2 
+❯ docker run -it --name container1 ubuntu 
+docker: Error response from daemon: Conflict. The container name "/container1" is already in use by container "02d37d49c196af69df486bef4b169742c5c2e069de1f14321f2637b7bbc28252". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+
+~ via ❄️  v3.12.2 
+❯ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+~ via ❄️  v3.12.2 
+❯ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+~ via ❄️  v3.12.2 
+❯ docker ps -a
+CONTAINER ID   IMAGE     COMMAND       CREATED          STATUS                       PORTS     NAMES
+d40f1e69e836   ubuntu    "/bin/bash"   4 minutes ago    Exited (0) 3 minutes ago               gracious_mendeleev
+15542886522d   ubuntu    "/bin/bash"   9 minutes ago    Exited (137) 4 minutes ago             container2
+02d37d49c196   ubuntu    "sh"          10 minutes ago   Exited (137) 4 minutes ago             container1
+
+~ via ❄️  v3.12.2 
+❯ docker rm 02d37d49c196 d40f1e69e836 15542886522d
+02d37d49c196
+d40f1e69e836
+15542886522d
+
+~ via ❄️  v3.12.2 
+❯ docker ps -a                                    
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+~ via ❄️  v3.12.2 
+❯ docker run -it --name container1 ubunto
+Unable to find image 'ubunto:latest' locally
+^[[A^[[B^C%                                                                                                                        
+~ via ❄️  v3.12.2 took 3s 
+❯ docker run -it --name container1 ubuntu
+root@a074b4b3ab3c:/# ping -c 4 8.8.8.8
+bash: ping: command not found
+root@a074b4b3ab3c:/# apt update
+Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:5 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1258 kB]
+Get:6 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]
+Get:8 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1883 kB]      
+Get:9 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [34.8 kB]
+Get:10 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [3262 kB]
+Get:11 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]                  
+Get:12 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]         
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [3471 kB]
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2275 kB]
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2017 kB]
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [38.1 kB]
+Get:17 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [34.6 kB]
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.5 kB]
+Fetched 36.5 MB in 6s (5802 kB/s)                                                                                                 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+4 packages can be upgraded. Run 'apt list --upgradable' to see them.
+root@a074b4b3ab3c:/# apt install -y iputils-ping
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libcap2-bin libpam-cap
+The following NEW packages will be installed:
+  iputils-ping libcap2-bin libpam-cap
+0 upgraded, 3 newly installed, 0 to remove and 4 not upgraded.
+Need to get 91.2 kB of archives.
+After this operation, 322 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcap2-bin amd64 1:2.66-5ubuntu2.2 [34.2 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 iputils-ping amd64 3:20240117-1ubuntu0.1 [44.6 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpam-cap amd64 1:2.66-5ubuntu2.2 [12.5 kB]
+Fetched 91.2 kB in 1s (82.9 kB/s)
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package libcap2-bin.
+(Reading database ... 4381 files and directories currently installed.)
+Preparing to unpack .../libcap2-bin_1%3a2.66-5ubuntu2.2_amd64.deb ...
+Unpacking libcap2-bin (1:2.66-5ubuntu2.2) ...
+Selecting previously unselected package iputils-ping.
+Preparing to unpack .../iputils-ping_3%3a20240117-1ubuntu0.1_amd64.deb ...
+Unpacking iputils-ping (3:20240117-1ubuntu0.1) ...
+Selecting previously unselected package libpam-cap:amd64.
+Preparing to unpack .../libpam-cap_1%3a2.66-5ubuntu2.2_amd64.deb ...
+Unpacking libpam-cap:amd64 (1:2.66-5ubuntu2.2) ...
+Setting up libcap2-bin (1:2.66-5ubuntu2.2) ...
+Setting up libpam-cap:amd64 (1:2.66-5ubuntu2.2) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.38.2 /usr/local/share/perl/5.38.2 /usr/lib/x86_64-linux-gnu/perl5/5.38 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8.)
+debconf: falling back to frontend: Teletype
+Setting up iputils-ping (3:20240117-1ubuntu0.1) ...
+root@a074b4b3ab3c:/# ping -c 4 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=62 time=36.0 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=62 time=22.1 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=62 time=29.3 ms
+^C
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2009ms
+rtt min/avg/max/mdev = 22.147/29.136/36.011/5.660 ms
+root@a074b4b3ab3c:/# exit
+exit
+
+~ via ❄️  v3.12.2 took 4m2s 
+❯ docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+~ via ❄️  v3.12.2 
+❯ docker ps -a
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                      PORTS     NAMES
+386560e41eb6   ubuntu    "/bin/bash"   2 minutes ago   Exited (2) 14 seconds ago             container2
+a074b4b3ab3c   ubuntu    "/bin/bash"   4 minutes ago   Exited (0) 12 seconds ago             container1
+
+~ via ❄️  v3.12.2 
+❯ docker stop 386560e41eb6 a074b4b3ab3c
+386560e41eb6
+a074b4b3ab3c
+
+~ via ❄️  v3.12.2 
+❯ docker network create my-network
+43512c58f549846bf9dc68d6bba1d2298413cf5e718fd7d89d061a83619dd030
+
+~ via ❄️  v3.12.2 
+❯ docker run -dit --name container1 --network my-network ubuntu
+docker: Error response from daemon: Conflict. The container name "/container1" is already in use by container "a074b4b3ab3cf5a021d868ba059bd97ec3287fe70c446ca7b4e724c69b16d913". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+
+~ via ❄️  v3.12.2 
+❯ docker ps -a
+CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                     PORTS     NAMES
+386560e41eb6   ubuntu    "/bin/bash"   4 minutes ago   Exited (2) 2 minutes ago             container2
+a074b4b3ab3c   ubuntu    "/bin/bash"   6 minutes ago   Exited (0) 2 minutes ago             container1
+
+~ via ❄️  v3.12.2 
+❯ docker rm 386560e41eb6 a074b4b3ab3c
+386560e41eb6
+a074b4b3ab3c
+
+~ via ❄️  v3.12.2 
+❯ docker run -dit --name container1 --network my-network ubuntu
+02a7e5bc784556c35c5bccd824e781b9ccffa1c622d7ced553e9ae90d7d982e9
+
+~ via ❄️  v3.12.2 
+❯ docker run -dit --name container2 --network my-network ubuntu
+7f069db6a43e94c4eb81bcba70f184106684c7c022ecf00e84e91299eafec3e0
+
+~ via ❄️  v3.12.2 
+❯ docker exec container1
+"docker exec" requires at least 2 arguments.
+See 'docker exec --help'.
+
+Usage:  docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+Execute a command in a running container
+
+~ via ❄️  v3.12.2 
+❯ docker exec container1 bash
+
+~ via ❄️  v3.12.2 
+❯ docker exec -it container1 bash
+root@02a7e5bc7845:/# apt update
+Get:1 http://archive.ubuntu.com/ubuntu noble InRelease [256 kB]
+Get:2 http://security.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://security.ubuntu.com/ubuntu noble-security/multiverse amd64 Packages [34.8 kB]
+Get:5 http://security.ubuntu.com/ubuntu noble-security/main amd64 Packages [1883 kB]
+Get:6 http://archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:7 http://archive.ubuntu.com/ubuntu noble/main amd64 Packages [1808 kB]
+Get:8 http://archive.ubuntu.com/ubuntu noble/universe amd64 Packages [19.3 MB]                                                    
+Get:9 http://security.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1258 kB]                                          
+Get:10 http://security.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [3262 kB]                                       
+Get:11 http://archive.ubuntu.com/ubuntu noble/multiverse amd64 Packages [331 kB]                                                  
+Get:12 http://archive.ubuntu.com/ubuntu noble/restricted amd64 Packages [117 kB]                                                  
+Get:13 http://archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [2017 kB]                                           
+Get:14 http://archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [3471 kB]                                         
+Get:15 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [2275 kB]                                               
+Get:16 http://archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Packages [38.1 kB]                                         
+Get:17 http://archive.ubuntu.com/ubuntu noble-backports/main amd64 Packages [49.5 kB]                                             
+Get:18 http://archive.ubuntu.com/ubuntu noble-backports/universe amd64 Packages [34.6 kB]                                         
+Fetched 36.5 MB in 36s (1002 kB/s)                                                                                                
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+4 packages can be upgraded. Run 'apt list --upgradable' to see them.
+root@02a7e5bc7845:/# ping container2
+bash: ping: command not found
+root@02a7e5bc7845:/# apt install -y iputils-ping
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libcap2-bin libpam-cap
+The following NEW packages will be installed:
+  iputils-ping libcap2-bin libpam-cap
+0 upgraded, 3 newly installed, 0 to remove and 4 not upgraded.
+Need to get 91.2 kB of archives.
+After this operation, 322 kB of additional disk space will be used.
+Get:1 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libcap2-bin amd64 1:2.66-5ubuntu2.2 [34.2 kB]
+Get:2 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 iputils-ping amd64 3:20240117-1ubuntu0.1 [44.6 kB]
+Get:3 http://archive.ubuntu.com/ubuntu noble-updates/main amd64 libpam-cap amd64 1:2.66-5ubuntu2.2 [12.5 kB]
+Fetched 91.2 kB in 2s (45.3 kB/s)    
+debconf: delaying package configuration, since apt-utils is not installed
+Selecting previously unselected package libcap2-bin.
+(Reading database ... 4381 files and directories currently installed.)
+Preparing to unpack .../libcap2-bin_1%3a2.66-5ubuntu2.2_amd64.deb ...
+Unpacking libcap2-bin (1:2.66-5ubuntu2.2) ...
+Selecting previously unselected package iputils-ping.
+Preparing to unpack .../iputils-ping_3%3a20240117-1ubuntu0.1_amd64.deb ...
+Unpacking iputils-ping (3:20240117-1ubuntu0.1) ...
+Selecting previously unselected package libpam-cap:amd64.
+Preparing to unpack .../libpam-cap_1%3a2.66-5ubuntu2.2_amd64.deb ...
+Unpacking libpam-cap:amd64 (1:2.66-5ubuntu2.2) ...
+Setting up libcap2-bin (1:2.66-5ubuntu2.2) ...
+Setting up libpam-cap:amd64 (1:2.66-5ubuntu2.2) ...
+debconf: unable to initialize frontend: Dialog
+debconf: (No usable dialog-like program is installed, so the dialog based frontend cannot be used. at /usr/share/perl5/Debconf/FrontEnd/Dialog.pm line 79.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC entries checked: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.38.2 /usr/local/share/perl/5.38.2 /usr/lib/x86_64-linux-gnu/perl5/5.38 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl-base /usr/lib/x86_64-linux-gnu/perl/5.38 /usr/share/perl/5.38 /usr/local/lib/site_perl) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 8.)
+debconf: falling back to frontend: Teletype
+Setting up iputils-ping (3:20240117-1ubuntu0.1) ...
+root@02a7e5bc7845:/# ping container2
+PING container2 (172.18.0.3) 56(84) bytes of data.
+64 bytes from container2.my-network (172.18.0.3): icmp_seq=1 ttl=64 time=0.312 ms
+64 bytes from container2.my-network (172.18.0.3): icmp_seq=2 ttl=64 time=0.087 ms
+64 bytes from container2.my-network (172.18.0.3): icmp_seq=3 ttl=64 time=0.088 ms
+^C
+--- container2 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2061ms
+rtt min/avg/max/mdev = 0.087/0.162/0.312/0.105 ms
+root@02a7e5bc7845:/# 
